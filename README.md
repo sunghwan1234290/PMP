@@ -1,6 +1,6 @@
-## scRNA-seq and bulk RNA-seq analysis of pseudomyxoma peritonei (PMP)
+# scRNA-seq and bulk RNA-seq analysis of pseudomyxoma peritonei (PMP)
 
-### Abstract
+## Abstract
 Backgrounds: Psuedomyxoma peritonei (PMP) is a rare colon disease, whose symptoms and treatments have been numerously investigated, However, omics profiling of this disease remains significantly underexplored. Here, we present single-cell transcriptomic profiling of five PMP cases and bulk RNA-Seq profiling of 19 fresh frozen tissues and 25 FFPE samples to identify gene characteristics specific to each cell type associated with PMP pathogenesis.
 
 Experimental Design: We conducted single-cell transcriptomic profiling on five PMP cases and three normal peritoneum cases to identify cell type-specific gene signatures associated with PMP. Validation was performed using bulk RNA-seq datasets from two independent cohorts: 19 fresh frozen tissue samples (12 PMPs) and 34 formalin-fixed paraffin-embedded samples (25 PMPs). 
@@ -9,14 +9,14 @@ Results: Single-cell transcriptomic analysis revealed the cellular diversity of 
 
 Conclusion: This study investigates the intricate PMP molecular landscape, demonstrating the coexistence of distinct epithelial and mesenchymal cells. 
 
-### Descriptions of files in the repository
+## Descriptions of files in the repository
 R Code
 
 <b>Bulk RNA-seq differential expression gene (DEG) analysis</b> : The R code for identifying DEGs in bulk RNA-seq requires the data from GSE228376 (19 fresh frozen samples) and GSE228375 (25 FFPE samples).
 
 <b>PMP_scRNA_analysis</b> : The R code for scRNA-seq analysis requires data from GSE228377 (5 PMP single-cell samples) and GSE130888 (GSM3755693, GSM3755694, GSM3755695; normal peritoneum samples).
 
-### How to use
+## How to use
 To use the code provided in this repository, please first install R and run RStudio.
 
 The analyses were conducted using R version 4.1.1 and implemented with Seurat version 4.3.
