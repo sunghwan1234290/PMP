@@ -5,7 +5,7 @@ Backgrounds: Psuedomyxoma peritonei (PMP) is a rare colon disease, whose symptom
 
 Experimental Design: We conducted single-cell transcriptomic profiling on five PMP cases and three normal peritoneum cases to identify cell type-specific gene signatures associated with PMP. Validation was performed using bulk RNA-seq datasets from two independent cohorts: 19 fresh frozen tissue samples (12 PMPs) and 34 formalin-fixed paraffin-embedded samples (25 PMPs). 
 
-Results: Single-cell transcriptomic analysis revealed the cellular diversity of PMP, contrasting the coexistence of epithelial and mesenchymal characteristics within PMP cells against the primarily mesenchymal composition of normal peritoneum. These findings were confirmed via bulk RNA-seq by highlighting increased expressions of genes associated with cellular functions such as proliferation, movement, and immune responses in PMP tissues. Gene network analysis supported the molecular heterogeneity of PMP, with active epithelial and mesenchymal characteristics evidenced by predominant gene networks that comprise both CDH1 and CDH2. 
+Results: Single-cell transcriptomic analysis revealed the cellular diversity of PMP, contrasting the coexistence of epithelial and mesenchymal characteristics within PMP cells against the primarily mesenchymal composition of normal peritoneum. These findings were confirmed via bulk RNA-seq by highlighting increased expressions of genes associated with cellular functions such as proliferation, movement, and immune responses in PMP tissues. 
 
 Conclusion: This study investigates the intricate PMP molecular landscape, demonstrating the coexistence of distinct epithelial and mesenchymal cells. 
 
