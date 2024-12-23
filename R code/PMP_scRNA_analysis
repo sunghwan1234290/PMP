@@ -94,7 +94,7 @@ PMP.combined <- FindNeighbors(PMP.combined, reduction = "harmony", dims = 1:6)
 PMP.combined <- FindClusters(PMP.combined, resolution = 0.25) 
 #UMAP visualization
 DimPlot(PMP.combined, reduction = "umap", label = TRUE,label.size = 10, repel = TRUE)
-DimPlot(PMP.combined, reduction = "umap", group.by = "stim",cols = c("red", "red", "red", "blue", "blue", "blue", "blue", "blue"))
+DimPlot(immune.combined, reduction = "umap", group.by = "orig.ident") + scale_colour_manual(values = alpha(c("blue", "red"), 0.1))
 DimPlot(PMP.combined, reduction = "umap", split.by = "stim",ncol = 3)
 
 #Identify conserved cell type markers
