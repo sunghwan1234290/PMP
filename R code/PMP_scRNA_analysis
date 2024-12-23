@@ -83,14 +83,16 @@ PMP.combined <- IntegrateData(anchorset = PMP.anchors, dims = 1:20)
 #Perform an integrated analysis
 DefaultAssay(PMP.combined) <- "integrated"
 
-#visualization and clustering
+#Scaling the data
 PMP.combined <- ScaleData(PMP.combined, verbose = FALSE)
+#Perform linear dimensional reduction
 PMP.combined <- RunPCA(PMP.combined, npcs = 30, verbose = FALSE)
 #Harmony Integration
 PMP.combined <- RunHarmony(PMP.combined, group.by.vars = "orig.ident")
+#Run non-linear dimensional reduction
 PMP.combined <- RunUMAP(PMP.combined,reduction = "harmony", dims = 1:30) 
 ElbowPlot(PMP.combined)
-#Check the elbow plot to determine the optimal number of PCs.
+#Cluster the cells (Check the elbow plot to determine the optimal number of PCs)
 PMP.combined <- FindNeighbors(PMP.combined, reduction = "harmony", dims = 1:6)
 #Due to differences in R and Seurat versions, the number of clusters after setting the resolution may vary. Please ensure it is adjusted to 10 clusters.
 PMP.combined <- FindClusters(PMP.combined, resolution = 0.25) 
@@ -101,12 +103,14 @@ DimPlot(PMP.combined, reduction = "umap", split.by = "stim",ncol = 3)
 
 #Identify conserved cell type markers
 DefaultAssay(PMP.combined) <- "RNA"
+#FeaturePlot,VlnPlot significant gene visualization
 FeaturePlot(PMP.combined, features = c("CDH1", "MUC1", "EPCAM", "ZEB2", "SPARC", "COL3A1","CDH2"),order = TRUE)
 VlnPlot(PMP.combined, features = c("CDH1", "MUC1","EPCAM","ZEB2","SPARC","COL3A1","CDH2"))
+#Top marker genes by cluster 
 PMP.markers <- FindAllMarkers(PMP.combined, only.pos = TRUE, min.pct = 0.2,logfc.threshold = 0.4)
 write.table(PMP.markers, ./Markers.txt", quote=FALSE, sep='\t', col.names = TRUE)
 
-#Dotplot
+#Dotplot of genes representing each cluster
 DotPlot(object = PMP.combined, features = c("IL7R",
                                                "BATF",
                                                "EPCAM",
