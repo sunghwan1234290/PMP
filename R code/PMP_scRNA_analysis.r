@@ -7,6 +7,8 @@ library(ggsignif)
 library(harmony)
 library(cluster)
 library(ClustAssess)
+library(edgeR)
+library(gdata)
 
 #Data set
 GSM3755693.data <- Read10X(data.dir = "./GSM3755693_feature_bc_matrix")
@@ -130,6 +132,66 @@ CombinePlots(plots = plots, ncol = 1)
 #Pseudo bulk using AggregateExpression
 pseudo_pmp <- AggregateExpression(PMP.combined, group.by = "stim", assays = "RNA", slot = "data")
 write.table(pseudo_pmp,file="./pseudo_pmp.txt",quote=FALSE,sep="\t")
+
+###EdgeR###
+#setup variables
+count.file = "./pseudo_pmp.txt"
+result.file = "SigTable.Nomal vs PMP.txt"
+result.file.bonf = "SigTable.bonf.Nomal vs PMP.txt"
+p_cutoff = 0.05
+fc_cutoff = 1
+
+#Loading raw data
+raw.data <- read.delim(count.file)
+
+#target sample selection 
+probeIds = raw.data[,1]
+exprMtrx = raw.data[,-c(1)]
+
+#divide samples
+control.grp = exprMtrx[,c(1:3)] #nomal
+test.grp= exprMtrx[,c(4:8)] #PMP
+d <- cbind(control.grp, test.grp)
+grouptag = c(rep(1, ncol(control.grp)),rep(2, ncol(test.grp)))
+
+#get DGE list using edgeR
+rownames(d) <- raw.data[, 1]
+d <- DGEList(counts = d, group = grouptag, genes=raw.data[,1])
+dim(d)
+
+#Filtering very low expressed genes
+#Since the smallest group size is three, we keep genes that achieve 
+#at least one count per million (cpm) in at least three samples.
+keep <- rowSums(cpm(d)>1) >= 3
+d <- d[keep,]
+dim(d)
+
+#normalization
+d <- calcNormFactors(d)
+
+#Estimating the dispersion
+d <- estimateCommonDisp(d, verbose=TRUE)
+d <- estimateTagwiseDisp(d)
+plotBCV(d)
+
+# differentially expressed genes
+et <- exactTest(d)
+toptagList <- topTags(et, n=nrow(raw.data))$table
+pValues = toptagList[,4]
+fcValues = toptagList[,2]
+fdrValues = toptagList[,5]
+
+#Bonferroni correction
+bonf.pValues = pValues * nrow(exprMtrx)
+finalStatTable = cbind(toptagList, bonf.pValues)
+sigList = finalStatTable[pValues<p_cutoff & (fcValues > log2(fc_cutoff) | fcValues < -log2(fc_cutoff)),]
+sigList.bonf = finalStatTable[bonf.pValues<p_cutoff & (fcValues > log2(fc_cutoff) | fcValues < -log2(fc_cutoff)),]
+
+#file writing
+mergedData <- merge(sigList, raw.data, by.x = 1, by.y = 1)
+write.table(mergedData, result.file, sep="\t", row.names = F, quote = F)
+mergedData <- merge(sigList.bonf, raw.data, by.x = 1, by.y = 1)
+write.table(mergedData, result.file.bonf, sep="\t", row.names = F, quote = F)
 
 #subset analysis : epithelial cell cluster
 cluster_of_interest <- 1
