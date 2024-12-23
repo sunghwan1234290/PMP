@@ -12,10 +12,12 @@ Conclusion: This study investigates the intricate PMP molecular landscape, demon
 ### Descriptions of files in the repository
 R Code
 
+<b>Bulk RNA-seq differential expression gene (DEG) analysis</b> : The R code for identifying DEGs in bulk RNA-seq requires the data from GSE228376 (19 fresh frozen samples) and GSE228375 (25 FFPE samples).
+
+<b>PMP_scRNA_analysis</b> : The R code for scRNA-seq analysis requires data from GSE228377 (5 PMP single-cell samples) and GSE130888 (GSM3755693, GSM3755694, GSM3755695; normal peritoneum samples).
 
 ### How to use
-1. The analyses were conducted using R version 4.1.1 and implemented with Seurat version 4.3.
-  
-2. please download data GSE228377(PMP scRNA samples) and GSE130888(GSM3755693,GSM3755694,GSM3755695; Normal-Peritoneum samples)
-
-3. The rds files for the five PMP samples are registered under GSE228377. Please refer to this dataset for further details.
+To use the code provided in this repository, please first install R and run RStudio.
+The analyses were conducted using R version 4.1.1 and implemented with Seurat version 4.3.
+The rds files for the five PMP samples are registered under GSE228377.
+The log2CPM of the bulk RNA-seq data can be referenced in the log2CPM.xlsx file provided within the GSE228375 and GSE228376 datasets.
