@@ -6,14 +6,18 @@ library(cluster)
 
 #Data set run anlaysis workflow
 #QC and selecting cells for further analysis
-#Normalizing the data
-#Identification of highly variable features (feature selection)
+#read data set 
 GSM3755693.data <- Read10X(data.dir = "./GSM3755693_feature_bc_matrix")
+#create seurat object
 GSM3755693 <- CreateSeuratObject(counts = GSM3755693.data, project = "Normal-Peritoneum",min.cells = 3, min.features = 200)
+#add sample name
 GSM3755693$stim <- "healthy-1"
+#QC and selecting cells for further analysis
 GSM3755693[["percent.mt"]] <- PercentageFeatureSet(GSM3755693, pattern = "^MT-")
 GSM3755693 <- subset(GSM3755693, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
+#Normalizing the data
 GSM3755693 <- NormalizeData(GSM3755693, verbose = FALSE)
+#Identification of highly variable features (feature selection)
 GSM3755693 <- FindVariableFeatures(GSM3755693, selection.method = "vst", nfeatures = 2000)
 
 GSM3755694.data <- Read10X(data.dir = "./GSM3755694_feature_bc_matrix")
