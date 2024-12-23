@@ -232,9 +232,9 @@ mesenchymal_PMP_cells <- FindClusters(mesenchymal_PMP_cells, resolution = 0.1)
 DefaultAssay(mesenchymal_PMP_cells) <- "integrated"
 DimPlot(mesenchymal_PMP_cells, reduction = "umap", label.size = 10, repel = TRUE)
 DefaultAssay(mesenchymal_PMP_cells) <- "RNA"
-#find Mesothelial associated genes
+#find mesothelial associated genes
 VlnPlot(mesenchymal_PMP_cells, features = c("KRT19", "KRT8", "KRT18", "KRT7"),ncol = 2)
 FeaturePlot(mesenchymal_PMP_cells, features = c("KRT19", "KRT8", "KRT18", "KRT7"),ncol = 2)
-#Mesothelioma associated genes
+#find mesothelioma associated genes
 VlnPlot(mesenchymal_PMP_cells, features = c("CALB2","KRT5", "MSLN", "SEPT7"),ncol = 2)
 FeaturePlot(mesenchymal_PMP_cells, features = c("CALB2","KRT5", "MSLN", "SEPT7"),ncol = 2)
