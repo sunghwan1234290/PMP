@@ -83,7 +83,7 @@ PMP.combined <- IntegrateData(anchorset = PMP.anchors, dims = 1:20)
 #Perform an integrated analysis
 DefaultAssay(PMP.combined) <- "integrated"
 
-# Run the standard workflow for visualization and clustering
+#visualization and clustering
 PMP.combined <- ScaleData(PMP.combined, verbose = FALSE)
 PMP.combined <- RunPCA(PMP.combined, npcs = 30, verbose = FALSE)
 #Harmony Integration
