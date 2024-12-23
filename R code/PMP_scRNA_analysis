@@ -36,7 +36,6 @@ GSM3755695 <- subset(GSM3755695, subset = nFeature_RNA > 200 & nFeature_RNA < 25
 GSM3755695 <- NormalizeData(GSM3755695, verbose = FALSE)
 GSM3755695 <- FindVariableFeatures(GSM3755695, selection.method = "vst", nfeatures = 2000)
 
-
 PMP1.data <- Read10X(data.dir = "./GSM7119899_filtered_feature_bc_matrix/")
 PMP1 <- CreateSeuratObject(counts = PMP1.data, project = "PMP",min.cells = 3, min.features = 200)
 PMP1$stim <- "PMP-1"
@@ -95,7 +94,7 @@ ElbowPlot(PMP.combined)
 PMP.combined <- FindNeighbors(PMP.combined, reduction = "harmony", dims = 1:6)
 #Due to differences in R and Seurat versions, the number of clusters after setting the resolution may vary. Please ensure it is adjusted to 10 clusters.
 PMP.combined <- FindClusters(PMP.combined, resolution = 0.25) 
-#visualization
+#UMAP visualization
 DimPlot(PMP.combined, reduction = "umap", label = TRUE,label.size = 10, repel = TRUE)
 DimPlot(PMP.combined, reduction = "umap", group.by = "stim",cols = c("red", "red", "red", "blue", "blue", "blue", "blue", "blue"))
 DimPlot(PMP.combined, reduction = "umap", split.by = "stim",ncol = 3)
