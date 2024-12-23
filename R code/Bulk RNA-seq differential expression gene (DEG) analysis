@@ -7,8 +7,6 @@ count.file = "./PMP_fresh_sample_RawCount.txt"
 log2cpm.file = "./PMP_fresh_sample_log2CPM.txt"
 result.file = "SigTable.Nomal vs PMP.txt"
 result.file.bonf = "SigTable.bonf.Nomal vs PMP.txt"
-smear.fig = "sigGenes.Nomal vs PMP.smear.pdf"
-smear.fig.bonf = "sigGenes.Nomal vs PMP.bonf.smear.pdf"
 
 p_cutoff = 0.01
 fc_cutoff = 1.5
