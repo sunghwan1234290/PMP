@@ -132,9 +132,10 @@ DotPlot(object = PMP.combined, features = c("IL7R",
                                                "CD300E",
                                                "MS4A6A"), cols = c("lightgrey", "blue"),  dot.scale = 14, scale.by = "size") 
 
-#marker gene expression in each cluster
+#Violin plot of epithelial marker gene expression in healthy and PMP samples of each cluster
 plots <- VlnPlot(PMP.combined, features = c("CDH1", "EPCAM", "MUC1"), split.by = "orig.ident",pt.size = 1, combine = FALSE,split.plot = TRUE) 
 CombinePlots(plots = plots, ncol = 1)
+#Violin plot of mesenchymal marker gene expression in healthy and PMP samples of each cluster
 plots<-VlnPlot(PMP.combined, features = c("ZEB2","SPARC","COL3A1","CDH2"), split.by = "orig.ident",pt.size = 1, combine = FALSE,split.plot = TRUE)
 CombinePlots(plots = plots, ncol = 1)
                                                
@@ -143,8 +144,10 @@ pseudo_pmp <- AggregateExpression(PMP.combined, group.by = "stim", assays = "RNA
 write.table(pseudo_pmp,file="./pseudo_pmp.txt",quote=FALSE,sep="\t")
 
 #subset analysis : epithelial cell cluster
+#cluster designation
 cluster_of_interest <- 1
 epithelial_obj <- subset(PMP.combined, idents = cluster_of_interest)
+#standard workflow 
 epithelial_obj <- RunPCA(epithelial_obj, npcs = 30, verbose = FALSE)  
 epithelial_obj <- RunUMAP(epithelial_obj, dims = 1:10)  
 ElbowPlot(epithelial_obj)
