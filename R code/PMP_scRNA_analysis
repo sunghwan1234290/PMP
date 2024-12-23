@@ -7,10 +7,11 @@ library(ggsignif)
 library(harmony)
 library(cluster)
 library(ClustAssess)
-library(edgeR)
-library(gdata)
 
-#Data set
+#Data set run anlaysis workflow
+#QC and selecting cells for further analysis
+#Normalizing the data
+#Identification of highly variable features (feature selection)
 GSM3755693.data <- Read10X(data.dir = "./GSM3755693_feature_bc_matrix")
 GSM3755693 <- CreateSeuratObject(counts = GSM3755693.data, project = "Normal-Peritoneum",min.cells = 3, min.features = 200)
 GSM3755693$stim <- "healthy-1"
@@ -34,6 +35,7 @@ GSM3755695[["percent.mt"]] <- PercentageFeatureSet(GSM3755695, pattern = "^MT-")
 GSM3755695 <- subset(GSM3755695, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
 GSM3755695 <- NormalizeData(GSM3755695, verbose = FALSE)
 GSM3755695 <- FindVariableFeatures(GSM3755695, selection.method = "vst", nfeatures = 2000)
+
 
 PMP1.data <- Read10X(data.dir = "./GSM7119899_filtered_feature_bc_matrix/")
 PMP1 <- CreateSeuratObject(counts = PMP1.data, project = "PMP",min.cells = 3, min.features = 200)
@@ -85,11 +87,15 @@ DefaultAssay(PMP.combined) <- "integrated"
 # Run the standard workflow for visualization and clustering
 PMP.combined <- ScaleData(PMP.combined, verbose = FALSE)
 PMP.combined <- RunPCA(PMP.combined, npcs = 30, verbose = FALSE)
+#Harmony Integration
 PMP.combined <- RunHarmony(PMP.combined, group.by.vars = "orig.ident")
 PMP.combined <- RunUMAP(PMP.combined,reduction = "harmony", dims = 1:30) 
 ElbowPlot(PMP.combined)
+#Check the elbow plot to determine the optimal number of PCs.
 PMP.combined <- FindNeighbors(PMP.combined, reduction = "harmony", dims = 1:6)
+#Due to differences in R and Seurat versions, the number of clusters after setting the resolution may vary. Please ensure it is adjusted to 10 clusters.
 PMP.combined <- FindClusters(PMP.combined, resolution = 0.25) 
+#visualization
 DimPlot(PMP.combined, reduction = "umap", label = TRUE,label.size = 10, repel = TRUE)
 DimPlot(PMP.combined, reduction = "umap", group.by = "stim",cols = c("red", "red", "red", "blue", "blue", "blue", "blue", "blue"))
 DimPlot(PMP.combined, reduction = "umap", split.by = "stim",ncol = 3)
