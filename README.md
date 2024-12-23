@@ -18,6 +18,9 @@ R Code
 
 ### How to use
 To use the code provided in this repository, please first install R and run RStudio.
+
 The analyses were conducted using R version 4.1.1 and implemented with Seurat version 4.3.
+
 The rds files for the five PMP samples are registered under GSE228377.
+
 The log2CPM of the bulk RNA-seq data can be referenced in the log2CPM.xlsx file provided within the GSE228375 and GSE228376 datasets.
