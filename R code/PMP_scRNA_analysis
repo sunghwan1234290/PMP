@@ -1,12 +1,8 @@
 library(Seurat)
 library(metap)
 library(multtest)
-library(ggplot2)
-library(ggpubr)
-library(ggsignif)
 library(harmony)
 library(cluster)
-library(ClustAssess)
 
 #Data set run anlaysis workflow
 #QC and selecting cells for further analysis
